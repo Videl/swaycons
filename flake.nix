@@ -26,6 +26,27 @@
         devShell = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [ rustc cargo ];
         };
+
+
+        # defaultApp = flake-utils.lib.mkApp {
+        #   drv = self.defaultPackage."${system}";
+        # };
+        #
+
+        nixosModule =
+          { options, lib, pkgs, config, ... }:
+
+          {
+            environment.systemPackages = with pkgs;  [
+
+              self.packages.${system}.swaycons
+
+            ];
+
+
+          };
+
       }
     );
+
 }
